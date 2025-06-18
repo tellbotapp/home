@@ -129,7 +129,7 @@
       Communicate better with locals using TellBot.
     </p>
     <div class="store-buttons">
-      <a href="https://play.google.com/store/apps">
+      <a href="https://play.google.com/store/apps/details?id=com.worldbuild.tellbot">
         <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
           alt="Get it on Google Play" />
       </a>
@@ -151,9 +151,20 @@
     function showComingSoon() {
       const overlay = document.getElementById('overlay');
       overlay.style.display = 'flex';
-      setTimeout(() => {
+
+      const timeoutId = setTimeout(() => {
         overlay.style.display = 'none';
-      }, 2500);
+      }, 1500);
+
+      const handleClickOutside = (event) => {
+        if (event.target === overlay) {
+          clearTimeout(timeoutId);
+          overlay.style.display = 'none';
+          overlay.removeEventListener('click', handleClickOutside);
+        }
+      };
+
+      overlay.addEventListener('click', handleClickOutside);
     }
   </script>
 </body>
